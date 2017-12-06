@@ -23,9 +23,9 @@
 #       alerts are being routed to for that particular client.
 
 require 'sensu-handler'
+require 'erb'
 require 'hipchat'
 require 'timeout'
-require 'erubis'
 
 class HipChatNotif < Sensu::Handler
   option :json_config,
@@ -79,7 +79,7 @@ class HipChatNotif < Sensu::Handler
       ].join
       %>'''
     end
-    eruby = Erubis::Eruby.new(template)
+    eruby = ERB.new(template)
     message = eruby.result(binding)
 
     begin
